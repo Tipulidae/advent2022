@@ -15,19 +15,29 @@ def parse_calories(path):
 
         elf.append(int(line))
 
+    calories.append(elf)
     return calories
 
 
-def most_calories(path):
-    data = parse_calories(path)
+def most_calories(data, num_elves=1):
     summed_calories = calories_per_elf(data)
-    return max(summed_calories)
+    return sum_top_elves(summed_calories, num_elves=num_elves)
 
 
-def day1_part1():
-    answer = most_calories('../input/day1_1.txt')
+def sum_top_elves(summed_calories, num_elves=1):
+    if num_elves == 1:
+        return max(summed_calories)
+
+    return sum(sorted(summed_calories, reverse=True)[:num_elves])
+
+
+def day1():
+    data = parse_calories('../input/day1_1.txt')
+    answer = most_calories(data)
     print(f"The elf with the most calories had {answer} calories")
+    answer = most_calories(data, num_elves=3)
+    print(f"The top three elves carry {answer} calories")
 
 
 if __name__ == '__main__':
-    day1_part1()
+    day1()
