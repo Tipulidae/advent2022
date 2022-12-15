@@ -1,6 +1,8 @@
 from enum import IntEnum
 from itertools import starmap
 
+from src.parser import read_lines
+
 
 class Shape(IntEnum):
     ROCK = 0
@@ -32,21 +34,17 @@ def round_score(opponent, me):
 
 
 def parse_moves(path):
-    with open(path, 'r') as f:
-        lines = f.readlines()
-
+    lines = read_lines(path)
     return list(map(map_move, lines))
 
 
 def parse_strategy(path):
-    with open(path, 'r') as f:
-        lines = f.readlines()
-
+    lines = read_lines(path)
     return list(map(map_strategy, lines))
 
 
 def map_move(round_string):
-    opponent, me = round_string.strip().split(' ')
+    opponent, me = round_string.split(' ')
     opponent_map = {
         'A': Shape.ROCK,
         'B': Shape.PAPER,
@@ -65,7 +63,7 @@ def follow_guide(strategy_guide):
 
 
 def map_strategy(round_string):
-    opponent, outcome = round_string.strip().split(' ')
+    opponent, outcome = round_string.split(' ')
     opponent_map = {
         'A': Shape.ROCK,
         'B': Shape.PAPER,

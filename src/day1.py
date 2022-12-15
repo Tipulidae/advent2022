@@ -1,22 +1,10 @@
 from src.calories import calories_per_elf
+from src.parser import read_lines, split_to_sections, strings_to_int
 
 
 def parse_calories(path):
-    with open(path, 'r') as f:
-        lines = f.readlines()
-
-    calories = []
-    elf = []
-    for line in lines:
-        if line == '\n':
-            calories.append(elf)
-            elf = []
-            continue
-
-        elf.append(int(line))
-
-    calories.append(elf)
-    return calories
+    calories = split_to_sections(read_lines(path))
+    return [strings_to_int(elf) for elf in calories]
 
 
 def most_calories(data, num_elves=1):

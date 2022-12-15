@@ -1,3 +1,6 @@
+from src.parser import read_lines
+
+
 def find_common_rucksack_items_and_sum_them(rucksacks):
     common_items = [rucksack.common_item() for rucksack in rucksacks]
     return sum_item_priorities(common_items)
@@ -8,10 +11,8 @@ def sum_item_priorities(items):
 
 
 def load_rucksacks(path):
-    with open(path, 'r') as f:
-        lines = f.readlines()
-
-    return [Rucksack(line.strip()) for line in lines]
+    lines = read_lines(path)
+    return list(map(Rucksack, lines))
 
 
 class Rucksack:
